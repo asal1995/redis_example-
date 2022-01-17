@@ -12,7 +12,7 @@ class TravelAgency():
     trip_id=0
     def passenger_create(self,name,phone,age):
         self.pass_id += 1
-        connection.hset(f"{self.pass_id}",mapping={"name":name,"phone":phone,"age":age,"pass_id":pass_id})
+        connection.hset(f"{self.pass_id}",mapping={"name":name,"phone":phone,"age":age})
 
 
     
@@ -24,7 +24,7 @@ class TravelAgency():
     def trip_create(self,passenger,beginning,destination,time,vehicle,pass_id):
         passengers={}
         for i in pass_id:
-            passenger = self.r.hgetall(i)
+            passenger = self.connection.hgetall(i)
             for j in passenger:
                 passenger[j.decode('utf-8')] = passenger.pop(j).decode('utf-8')
             passengers[i] = passenger
@@ -45,7 +45,7 @@ class TravelAgency():
         passengers={}
 
         for i in pass_id:
-            passenger = self.r.hgetall(i)
+            passenger = self.connection.hgetall(i)
             for j in passenger:
                 passenger[j.decode('utf-8')] = passenger.pop(j).decode('utf-8')
             passengers[i] = passenger
